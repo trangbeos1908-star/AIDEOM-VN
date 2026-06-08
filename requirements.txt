@@ -9,3 +9,5 @@ cvxpy
 pymoo
 scikit-learn
 openpyxl
+seaborn
+pyomo
