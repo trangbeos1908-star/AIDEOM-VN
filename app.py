@@ -45,7 +45,20 @@ Mô hình AIDEOM-VN tích hợp:
 - M4: Mô phỏng lao động AI
 - M5: Đánh giá rủi ro
 """)
+st.sidebar.markdown("## 📚 Danh sách bài")
 
+st.sidebar.page_link("app.py", label="🏠 Dashboard")
+st.sidebar.page_link("pages/1_Bài_1_Cobb_Douglas.py", label="Bài 1 Cobb-Douglas")
+st.sidebar.page_link("pages/2_Bài_2_LP.py", label="Bài 2 LP")
+st.sidebar.page_link("pages/3_Bài_3_Priority.py", label="Bài 3 Priority")
+st.sidebar.page_link("pages/4_Bài_4_Regional_LP.py", label="Bài 4 Regional LP")
+st.sidebar.page_link("pages/5_Bài_5_MIP.py", label="Bài 5 MIP")
+st.sidebar.page_link("pages/6_Bài_6_TOPSIS.py", label="Bài 6 TOPSIS")
+st.sidebar.page_link("pages/7_Bài_7_NSGAII.py", label="Bài 7 NSGA-II")
+st.sidebar.page_link("pages/8_Bài_8_Dynamic_Optimization.py", label="Bài 8 Dynamic")
+st.sidebar.page_link("pages/9_Bài_9_AI_Labor.py", label="Bài 9 AI Labor")
+st.sidebar.page_link("pages/10_Bài_10_Stochastic_SP.py", label="Bài 10 Stochastic SP")
+st.sidebar.page_link("pages/11_Bài_11_Q_Learning.py", label="Bài 11 Q-Learning")
 tab1, tab2, tab3, tab4 = st.tabs([
     "📊 Tổng quan",
     "💰 Phân bổ",
