@@ -38,47 +38,12 @@ h1,h2,h3,h4,h5,p,div{
 st.set_page_config(page_title="Stochastic Programming Model", layout="wide")
 
 # ==========================================
-# AUTO-DOWNLOAD VÀ CẤU HÌNH SOLVER CBC
+# CẤU HÌNH SOLVER CBC TRÊN STREAMLIT CLOUD
 # ==========================================
-@st.cache_resource
-def setup_cbc_solver():
-    """Tự động tải bộ giải CBC với link chính thức, có quét đệ quy tìm file exe."""
-    cbc_dir = os.path.join(os.path.expanduser("~"), "cbc_solver_fixed")
-    
-    # 1. Quét tìm cbc.exe nếu đã tải trước đó
-    if os.path.exists(cbc_dir):
-        for root, dirs, files in os.walk(cbc_dir):
-            if 'cbc.exe' in files:
-                return os.path.join(root, 'cbc.exe')
-                
-    # 2. Nếu chưa có, tiến hành tải bản chuẩn
-    with st.spinner("Đang tải bộ giải toán học CBC (Chỉ diễn ra 1 lần duy nhất)..."):
-        try:
-            os.makedirs(cbc_dir, exist_ok=True)
-            url = "https://github.com/coin-or/Cbc/releases/download/releases%2F2.10.10/Cbc-releases.2.10.10-w64-msvc17-md.zip"
-            zip_path = os.path.join(cbc_dir, "cbc.zip")
-            
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req) as response, open(zip_path, 'wb') as out_file:
-                out_file.write(response.read())
-            
-            with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-                zip_ref.extractall(cbc_dir)
-                
-            for root, dirs, files in os.walk(cbc_dir):
-                if 'cbc.exe' in files:
-                    return os.path.join(root, 'cbc.exe')
-                    
-        except Exception as e:
-            st.error(f"Lỗi khi tự động tải CBC: {e}")
-            return None
-    return None
+solver = pyo.SolverFactory("cbc")
 
-cbc_path = setup_cbc_solver()
-if cbc_path:
-    solver = pyo.SolverFactory('cbc', executable=cbc_path.replace("\\", "/"))
-else:
-    st.error("❌ Không thể thiết lập bộ giải CBC. Vui lòng kiểm tra lại mạng.")
+if not solver.available(exception_flag=False):
+    st.error("❌ Không tìm thấy solver CBC. Hãy tạo file packages.txt với dòng: coinor-cbc")
     st.stop()
 
 # ==========================================
